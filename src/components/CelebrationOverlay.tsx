@@ -21,6 +21,7 @@ interface Particle {
 export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showModal, setShowModal] = useState(false);
+  const [step, setStep] = useState(1);
   const particlesRef = useRef<Particle[]>([]);
 
   // Trigger confetti burst on load
@@ -222,76 +223,119 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
               <Sparkles className="w-6 h-6 animate-pulse" style={{ animationDelay: "0.5s" }} />
             </div>
 
-            <div className="mt-8 space-y-6">
-              {/* Popup Title */}
-              <motion.h2
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
-                className="font-sans font-extrabold tracking-widest text-3xl md:text-4xl text-romantic-600 drop-shadow-sm"
-              >
-                ❤️ THANK YOU ❤️
-              </motion.h2>
+            <div className="mt-8">
+              <AnimatePresence mode="wait">
+                {step === 1 ? (
+                  <motion.div
+                    key="thank-you-step"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-6"
+                  >
+                    {/* Popup Title */}
+                    <h2 className="font-sans font-extrabold tracking-widest text-3xl md:text-4xl text-romantic-600 drop-shadow-sm">
+                      ❤️ THANK YOU ❤️
+                    </h2>
 
-              {/* Decorative dividing line */}
-              <div className="w-24 h-1 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
+                    {/* Decorative dividing line */}
+                    <div className="w-24 h-1 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
 
-              {/* Main message */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.7 } }}
-                className="space-y-4 font-sans text-slate-700 leading-relaxed text-base md:text-lg max-w-lg mx-auto"
-              >
-                <p className="font-semibold text-romantic-700 text-lg">
-                  Thank you for forgiving me.
-                </p>
-                <p>
-                  I am truly sorry for not answering your call. It was entirely my mistake, and I promise to be way more attentive.
-                </p>
-                <p className="text-slate-600 text-sm">
-                  This entire page is my way of saying sorry 500 times:
-                </p>
+                    {/* Main message */}
+                    <div className="space-y-4 font-sans text-slate-700 leading-relaxed text-base md:text-lg max-w-lg mx-auto">
+                      <p className="font-semibold text-romantic-700 text-lg">
+                        Thank you for forgiving me.
+                      </p>
+                      <p>
+                        I am truly sorry for not answering your call. It was entirely my mistake, and I promise to be way more attentive.
+                      </p>
+                      <p className="text-slate-600 text-sm">
+                        This entire page is my way of saying sorry 500 times:
+                      </p>
 
-                {/* Scrolling/Staggered sorry list */}
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl py-3 px-4 border border-rose-100 flex flex-wrap gap-2 justify-center max-w-sm mx-auto shadow-inner text-xs font-bold text-romantic-500">
-                  <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
-                  <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
-                  <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
-                  <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
-                  <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
-                  <span className="bg-rose-50 text-rose-gold-dark/80 px-2.5 py-1 rounded-full border border-rose-200">
-                    ...and 495 more times ❤️
-                  </span>
-                </div>
-              </motion.div>
+                      {/* Scrolling/Staggered sorry list */}
+                      <div className="bg-white/50 backdrop-blur-sm rounded-xl py-3 px-4 border border-rose-100 flex flex-wrap gap-2 justify-center max-w-sm mx-auto shadow-inner text-xs font-bold text-romantic-500">
+                        <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
+                        <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
+                        <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
+                        <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
+                        <span className="bg-romantic-100/60 px-2.5 py-1 rounded-full border border-romantic-200">Sorry</span>
+                        <span className="bg-rose-50 text-rose-gold-dark/80 px-2.5 py-1 rounded-full border border-rose-200">
+                          ...and 495 more times ❤️
+                        </span>
+                      </div>
+                    </div>
 
-              {/* Final Love Letter Accent */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1, transition: { delay: 1.0, type: "spring" } }}
-                className="bg-gradient-to-r from-romantic-50 to-pink-50 border border-romantic-100/80 p-5 rounded-2xl max-w-md mx-auto shadow-sm"
-              >
-                <p className="font-display text-3xl text-romantic-600 font-bold leading-tight">
-                  You are the best girlfriend in the world, Jahnavi!
-                </p>
-                <p className="text-xs text-rose-gold font-sans font-semibold tracking-widest uppercase mt-2">
-                  🥺❤️ muahhhh muahhh ❤️🥺
-                </p>
-              </motion.div>
+                    {/* Final Love Letter Accent */}
+                    <div className="bg-gradient-to-r from-romantic-50 to-pink-50 border border-romantic-100/80 p-5 rounded-2xl max-w-md mx-auto shadow-sm">
+                      <p className="font-display text-3xl text-romantic-600 font-bold leading-tight">
+                        You are the best girlfriend in the world, Jahnavi!
+                      </p>
+                      <p className="text-xs text-rose-gold font-sans font-semibold tracking-widest uppercase mt-2">
+                        🥺❤️ muahhhh muahhh ❤️🥺
+                      </p>
+                    </div>
 
-              {/* Return Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0, transition: { delay: 1.2 } }}
-                className="pt-4"
-              >
-                <button
-                  onClick={onClose}
-                  className="px-8 py-3.5 bg-gradient-to-r from-romantic-500 to-rose-400 hover:from-romantic-600 hover:to-rose-500 text-white font-sans font-bold rounded-full shadow-lg hover:shadow-romantic-500/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 mx-auto"
-                >
-                  <Send className="w-4 h-4 fill-white" />
-                  <span>We are good now! ❤️</span>
-                </button>
-              </motion.div>
+                    {/* Next Button */}
+                    <div className="pt-4">
+                      <button
+                        onClick={() => setStep(2)}
+                        className="px-8 py-3.5 bg-gradient-to-r from-romantic-500 to-rose-400 hover:from-romantic-600 hover:to-rose-500 text-white font-sans font-bold rounded-full shadow-lg hover:shadow-romantic-500/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 mx-auto cursor-pointer"
+                      >
+                        <Send className="w-4 h-4 fill-white" />
+                        <span>We are good now! ❤️</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="reassurance-step"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-6"
+                  >
+                    {/* Reassurance Header */}
+                    <h2 className="font-sans font-extrabold tracking-widest text-2xl md:text-3xl text-romantic-600 drop-shadow-sm">
+                      ✨ A LITTLE REMINDER ✨
+                    </h2>
+
+                    {/* Decorative dividing line */}
+                    <div className="w-24 h-1 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
+
+                    {/* Quote Box */}
+                    <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-rose-100/50 shadow-inner max-w-lg mx-auto">
+                      <p className="font-serif italic text-slate-800 text-lg md:text-xl leading-relaxed text-center">
+                        "If you only see the worst in things, you'll miss the best part. <br />
+                        and these worst things make you the best"
+                      </p>
+                    </div>
+
+                    {/* Reassuring Message (Telugu Text) */}
+                    <div className="bg-gradient-to-r from-romantic-50 to-pink-50 border border-romantic-100/80 p-5 rounded-2xl max-w-md mx-auto shadow-sm space-y-3">
+                      <p className="font-display text-2xl md:text-3xl text-romantic-700 font-bold leading-tight">
+                        neku edhi kakapotey inoka job jahnavi,
+                      </p>
+                      <p className="text-sm md:text-base text-rose-gold-dark font-sans font-bold tracking-wide uppercase">
+                        tension teskoku kastapadudham techukundham ❤️
+                      </p>
+                    </div>
+
+                    {/* Close Button */}
+                    <div className="pt-4">
+                      <button
+                        onClick={onClose}
+                        className="px-8 py-3.5 bg-gradient-to-r from-romantic-600 to-rose-500 hover:from-romantic-700 hover:to-rose-600 text-white font-sans font-bold rounded-full shadow-lg hover:shadow-romantic-600/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 mx-auto cursor-pointer"
+                      >
+                        <Heart className="w-4 h-4 fill-white" />
+                        <span>Always with you! ❤️</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         )}
