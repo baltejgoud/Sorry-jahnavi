@@ -117,11 +117,11 @@ function App() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center space-y-2 mt-4"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-romantic-100/60 border border-romantic-200/40 text-romantic-600 font-sans text-xs font-bold tracking-widest uppercase shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-romantic-100/80 border border-romantic-200/60 text-romantic-700 font-sans text-xs font-bold tracking-widest uppercase shadow-sm">
             <Smartphone className="w-3.5 h-3.5 animate-bounce" />
             <span>Case File: Missed Calls 📞</span>
           </div>
-          <h1 className="font-display text-4xl md:text-5xl text-romantic-700 font-bold drop-shadow-sm">
+          <h1 className="font-display text-4xl md:text-5xl text-romantic-900 font-bold drop-shadow-md tracking-wide">
             Forgiveness Portal
           </h1>
         </motion.div>
@@ -137,7 +137,6 @@ function App() {
               emoji="📱"
               title="My phone and my brain disconnected simultaneously."
               delay={0.4}
-              rotation={-3}
               floatY={10}
               floatDuration={5}
             />
@@ -147,7 +146,6 @@ function App() {
               title='I told myself "I will call back in 2 minutes."'
               subtitle="Narrator: He did not."
               delay={0.6}
-              rotation={4}
               floatY={14}
               floatDuration={6.5}
             />
@@ -212,7 +210,6 @@ function App() {
               title="Brain loading..."
               subtitle="Please wait... Still loading..."
               delay={0.8}
-              rotation={-2}
               floatY={12}
               floatDuration={5.8}
             />
@@ -222,7 +219,6 @@ function App() {
               title="Most people send a text."
               subtitle="I built an entire website."
               delay={1.0}
-              rotation={3}
               floatY={11}
               floatDuration={6}
             />
@@ -237,8 +233,8 @@ function App() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="w-full max-w-md mx-auto text-center space-y-6 pt-4"
         >
-          <div className="inline-flex items-center gap-2 text-romantic-600 font-sans font-bold text-lg md:text-xl">
-            <HeartHandshake className="w-5 h-5 animate-pulse" />
+          <div className="inline-flex items-center gap-2 text-romantic-900 font-sans font-bold text-lg md:text-xl drop-shadow-sm">
+            <HeartHandshake className="w-5 h-5 animate-pulse text-romantic-600" />
             <span>Please Accept My Apology ❤️</span>
           </div>
 

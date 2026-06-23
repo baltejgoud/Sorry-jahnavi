@@ -7,7 +7,6 @@ interface ExcuseCardProps {
   title: string;
   subtitle?: string;
   delay?: number;
-  rotation?: number; // Base rotation angle
   floatY?: number; // Y float distance
   floatDuration?: number;
   className?: string;
@@ -18,19 +17,17 @@ export const ExcuseCard: React.FC<ExcuseCardProps> = ({
   title,
   subtitle,
   delay = 0,
-  rotation = 0,
   floatY = 12,
   floatDuration = 6,
   className = "",
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 50, rotate: rotation }}
+      initial={{ opacity: 0, scale: 0.8, y: 50 }}
       animate={{
         opacity: 1,
         scale: 1,
         y: [0, -floatY, 0],
-        rotate: [rotation, rotation + 1.5, rotation - 1.5, rotation],
       }}
       transition={{
         // Entrance transition
@@ -43,16 +40,9 @@ export const ExcuseCard: React.FC<ExcuseCardProps> = ({
           ease: "easeInOut",
           delay: delay * 0.5,
         },
-        rotate: {
-          repeat: Infinity,
-          duration: floatDuration * 1.2,
-          ease: "easeInOut",
-          delay: delay * 0.5,
-        },
       }}
       whileHover={{
         scale: 1.05,
-        rotate: rotation * 0.5,
         y: -15,
         boxShadow: "0 20px 40px rgba(244, 91, 115, 0.15), 0 0 25px rgba(244, 91, 115, 0.25)",
         borderColor: "rgba(244, 91, 115, 0.4)",

@@ -39,38 +39,54 @@ export const RunawayButton: React.FC = () => {
     
     // Trigger threshold (e.g. 100 pixels)
     if (dist < 120) {
-      // Pick a random spot in the viewport, away from the mouse
-      const padding = 80;
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-
-      let newX = 0;
-      let newY = 0;
-      let attempts = 0;
-      
-      // Try to find a spot that is far from the mouse
-      do {
-        newX = padding + Math.random() * (screenW - padding * 2);
-        newY = padding + Math.random() * (screenH - padding * 2);
-        attempts++;
-      } while (
-        Math.hypot(mouseX - newX, mouseY - newY) < 220 && // must be 220px away from cursor
-        attempts < 20
-      );
-
-      // Convert new absolute screen positions to relative offsets from the button's default location.
-      // If we are already relocated, we calculate offsets from the original bounding box.
-      // To make it easy, we make the button fixed/absolute positioned once it starts running!
-      
-      // Calculate current offset relative to initial position
-      // Let's get the button's static position if we haven't moved yet.
-      // We can use fixed positioning for the runaway mode which makes absolute calculations foolproof.
-      
+      // Original static position of the button in viewport coordinates
       const staticLeft = rect.left - position.x;
       const staticTop = rect.top - position.y;
+      
+      const originX = staticLeft + rect.width / 2;
+      const originY = staticTop + rect.height / 2;
+      
+      // Calculate relative mouse coordinates from the button's default center
+      const relativeMouseX = mouseX - originX;
+      const relativeMouseY = mouseY - originY;
 
-      const offsetX = newX - staticLeft - rect.width / 2;
-      const offsetY = newY - staticTop - rect.height / 2;
+      // Restrict wandering to a small local circle around the default position
+      const maxRadius = 140; // Max distance from original position
+      const minCursorDist = 90; // Min distance from cursor
+
+      let offsetX = 0;
+      let offsetY = 0;
+      let attempts = 0;
+      let found = false;
+
+      while (attempts < 50) {
+        // Pick a random angle and a random radius
+        const angle = Math.random() * Math.PI * 2;
+        const r = 40 + Math.random() * (maxRadius - 40);
+        
+        const testX = Math.cos(angle) * r;
+        const testY = Math.sin(angle) * r;
+        
+        const distToMouse = Math.hypot(relativeMouseX - testX, relativeMouseY - testY);
+        if (distToMouse >= minCursorDist) {
+          offsetX = testX;
+          offsetY = testY;
+          found = true;
+          break;
+        }
+        attempts++;
+      }
+
+      if (!found) {
+        // Fallback: move opposite to mouse direction
+        let oppositeAngle = Math.random() * Math.PI * 2;
+        if (relativeMouseX !== 0 || relativeMouseY !== 0) {
+          const angleToMouse = Math.atan2(relativeMouseY, relativeMouseX);
+          oppositeAngle = angleToMouse + Math.PI;
+        }
+        offsetX = Math.cos(oppositeAngle) * maxRadius;
+        offsetY = Math.sin(oppositeAngle) * maxRadius;
+      }
 
       setPosition({ x: offsetX, y: offsetY });
 

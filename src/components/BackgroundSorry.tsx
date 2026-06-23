@@ -51,21 +51,21 @@ export const BackgroundSorry: React.FC = () => {
       
       // Determine layers based on index to distribute opacities and sizes
       let size = sizes[sizeIndex];
-      let opacity = 0.03 + (randomVal * 0.12);
+      let opacity = 0.01 + (randomVal * 0.03);
       
       // Distribute sizes more realistically (fewer large words, many small ones)
       if (i < 250) {
         // Deep background layer (small, faint)
         size = sizes[Math.floor(randomVal * 3)]; // text-xs to text-base
-        opacity = 0.02 + (randomVal * 0.04); // 0.02 to 0.06
+        opacity = 0.005 + (randomVal * 0.015); // 0.005 to 0.02
       } else if (i < 430) {
         // Midground layer
         size = sizes[2 + Math.floor(randomVal * 5)]; // text-base to text-3xl
-        opacity = 0.06 + (randomVal * 0.06); // 0.06 to 0.12
+        opacity = 0.015 + (randomVal * 0.025); // 0.015 to 0.04
       } else {
         // Foreground layer (large, more visible)
         size = sizes[5 + Math.floor(randomVal * 5)]; // text-2xl to text-6xl
-        opacity = 0.12 + (randomVal * 0.06); // 0.12 to 0.18
+        opacity = 0.03 + (randomVal * 0.03); // 0.03 to 0.06
       }
 
       const animIndex = Math.floor((randomVal * 97) % animations.length);
@@ -117,8 +117,8 @@ export const BackgroundSorry: React.FC = () => {
               transform: `rotate(${word.rotation}deg)`,
               animationDelay: word.delay,
               animationDuration: word.duration,
-              color: "var(--color-romantic-400)",
-              textShadow: "0 0 10px rgba(244, 91, 115, 0.05)",
+              color: "var(--color-romantic-100)",
+              textShadow: "0 0 10px rgba(244, 91, 115, 0.02)",
             }}
           >
             {word.text}
@@ -144,8 +144,8 @@ export const BackgroundSorry: React.FC = () => {
               transform: `rotate(${word.rotation}deg)`,
               animationDelay: word.delay,
               animationDuration: word.duration,
-              color: "var(--color-romantic-500)",
-              textShadow: "0 0 12px rgba(244, 91, 115, 0.08)",
+              color: "var(--color-romantic-200)",
+              textShadow: "0 0 12px rgba(244, 91, 115, 0.04)",
             }}
           >
             {word.text}
@@ -171,8 +171,8 @@ export const BackgroundSorry: React.FC = () => {
               transform: `rotate(${word.rotation}deg)`,
               animationDelay: word.delay,
               animationDuration: word.duration,
-              color: "var(--color-romantic-600)",
-              textShadow: "0 0 15px rgba(244, 91, 115, 0.15)",
+              color: "var(--color-romantic-200)",
+              textShadow: "0 0 15px rgba(244, 91, 115, 0.06)",
             }}
           >
             {word.text}

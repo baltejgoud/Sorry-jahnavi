@@ -35,9 +35,9 @@ export const HeartCursor: React.FC = () => {
       setCoords({ x: e.clientX, y: e.clientY });
 
       // Only spawn hearts occasionally to prevent lag (throttle by distance/time)
-      if (Math.random() < 0.18) {
+      if (Math.random() < 0.06) {
         const id = heartId++;
-        const size = Math.floor(Math.random() * 16) + 12; // 12px to 28px
+        const size = Math.floor(Math.random() * 8) + 10; // 10px to 18px
         const emojiIndex = Math.floor(Math.random() * emojis.length);
         
         // Random drift angle
@@ -52,12 +52,12 @@ export const HeartCursor: React.FC = () => {
           angle,
         };
 
-        setHearts((prev) => [...prev.slice(-20), newHeart]); // Keep max 20 active hearts
+        setHearts((prev) => [...prev.slice(-10), newHeart]); // Keep max 10 active hearts
 
-        // Auto remove after 1s
+        // Auto remove after 0.6s
         setTimeout(() => {
           setHearts((prev) => prev.filter((h) => h.id !== id));
-        }, 1000);
+        }, 600);
       }
     };
 
@@ -104,20 +104,20 @@ export const HeartCursor: React.FC = () => {
           <motion.div
             key={heart.id}
             initial={{ 
-              opacity: 1, 
+              opacity: 0.8, 
               scale: 0.5, 
               x: heart.x - heart.size / 2, 
               y: heart.y - heart.size / 2 
             }}
             animate={{ 
               opacity: 0, 
-              scale: [0.6, 1.2, 0.4],
-              y: heart.y - 120, // Float up by 120px
-              x: heart.x - heart.size / 2 + heart.angle * 2.5, // Drift slightly left/right
+              scale: [0.5, 1.0, 0.3],
+              y: heart.y - 50, // Float up by 50px
+              x: heart.x - heart.size / 2 + heart.angle * 1.5, // Drift slightly
               rotate: heart.angle * 2
             }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="absolute leading-none font-normal filter drop-shadow(0 2px 4px rgba(244, 91, 115, 0.2)) select-none pointer-events-none"
             style={{ 
               fontSize: `${heart.size}px`,
