@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, Send } from "lucide-react";
+import { Heart, Sparkles, Send, Gift } from "lucide-react";
 
 interface Particle {
   x: number;
@@ -288,7 +288,7 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
                       </button>
                     </div>
                   </motion.div>
-                ) : (
+                ) : step === 2 ? (
                   <motion.div
                     key="reassurance-step"
                     initial={{ opacity: 0, y: 10 }}
@@ -323,7 +323,56 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
                       </p>
                     </div>
 
-                    {/* Close Button */}
+                    {/* Playful/Cheeky Kisses Note */}
+                    <div className="bg-rose-50/60 border border-pink-100/60 p-4 rounded-xl max-w-md mx-auto shadow-sm">
+                      <p className="font-display text-xl md:text-2xl text-romantic-600 font-semibold leading-relaxed">
+                        ni lips na kisses ni miss ituney annukunta jahnavi andukey aa black ga ituney HAHAHAHA 😉💋
+                      </p>
+                    </div>
+
+                    {/* Surprise Button */}
+                    <div className="pt-4">
+                      <button
+                        onClick={() => setStep(3)}
+                        className="px-8 py-3.5 bg-gradient-to-r from-romantic-600 to-rose-500 hover:from-romantic-700 hover:to-rose-600 text-white font-sans font-bold rounded-full shadow-lg hover:shadow-romantic-600/30 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 mx-auto cursor-pointer"
+                      >
+                        <Gift className="w-4 h-4 fill-white" />
+                        <span>Surprise for you! 🎁</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="surprise-step"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-6"
+                  >
+                    {/* Surprise Header */}
+                    <h2 className="font-sans font-extrabold tracking-widest text-2xl md:text-3xl text-romantic-600 drop-shadow-sm uppercase">
+                      💝 SURPRISE FOR YOU! 💝
+                    </h2>
+
+                    {/* Decorative dividing line */}
+                    <div className="w-24 h-1 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
+
+                    {/* Image Container with romantic Polaroid-style frame */}
+                    <div className="relative mx-auto max-w-sm bg-white p-4 pb-6 rounded-2xl shadow-2xl border border-rose-100 rotate-1 transform hover:rotate-0 transition-transform duration-300">
+                      <div className="overflow-hidden rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
+                        <img
+                          src={`${import.meta.env.BASE_URL}my_photo.jpg`}
+                          alt="Jahnavi's Surprise"
+                          className="max-w-full h-auto object-contain max-h-[320px] md:max-h-[380px]"
+                        />
+                      </div>
+                      <p className="font-display text-3xl text-romantic-600 text-center mt-4">
+                        Always yours! 🥺❤️
+                      </p>
+                    </div>
+
+                    {/* Final Close Button */}
                     <div className="pt-4">
                       <button
                         onClick={onClose}
