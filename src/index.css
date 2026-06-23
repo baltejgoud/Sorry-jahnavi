@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-display: "Dancing Script", cursive;
+
+  /* Custom Romantic Theme */
+  --color-romantic-50: #fff5f6;
+  --color-romantic-100: #ffe8eb;
+  --color-romantic-200: #ffd5da;
+  --color-romantic-300: #ffb3bd;
+  --color-romantic-400: #ff8597;
+  --color-romantic-500: #f45b73;
+  --color-romantic-600: #e13b58;
+  --color-romantic-700: #be2842;
+  --color-romantic-800: #9e2338;
+  --color-romantic-900: #832031;
+
+  --color-rose-gold-light: #fbf5f3;
+  --color-rose-gold: #b76e79;
+  --color-rose-gold-dark: #8d4f59;
+
+  --color-cream: #faf7f2;
+}
+
+@layer utilities {
+  /* Premium Glassmorphism */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 8px 32px 0 rgba(244, 91, 115, 0.08),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card-dark {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 4px 20px 0 rgba(244, 91, 115, 0.04),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  /* Glow Effects */
+  .glow-pink-sm {
+    filter: drop-shadow(0 0 8px rgba(244, 91, 115, 0.3));
+  }
+
+  .glow-pink-md {
+    filter: drop-shadow(0 0 15px rgba(244, 91, 115, 0.5));
+  }
+
+  .glow-pink-lg {
+    filter: drop-shadow(0 0 25px rgba(244, 91, 115, 0.7));
+  }
+
+  /* Refraction effect */
+  .glass-reflection {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-reflection::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -150%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(
+      45deg,
+      transparent 45%,
+      rgba(255, 255, 255, 0.1) 48%,
+      rgba(255, 255, 255, 0.35) 50%,
+      rgba(255, 255, 255, 0.1) 52%,
+      transparent 55%
+    );
+    transform: rotate(-45deg);
+    transition: transform 0.8s ease;
+  }
+
+  .glass-reflection:hover::after {
+    transform: translate(50%, 50%) rotate(-45deg);
+  }
+}
+
+/* Animations Keyframes */
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(15px, -15px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--base-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(calc(var(--base-rot, 0deg) + 2deg));
+  }
+}
+
+@keyframes floatingExcuse {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(calc(var(--rot, 0deg) - 2deg));
+  }
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* Animated gradient background */
+.animated-bg {
+  background: linear-gradient(-45deg, #fdf8f5, #ffe8eb, #eef1f8, #fdf8f5);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+/* Base custom classes for elements */
+.animate-drift {
+  animation: drift 10s ease-in-out infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 6s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Heart firework animation */
+@keyframes heartBurst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.heart-burst {
+  animation: heartBurst 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Cursor styles */
+.custom-cursor-hidden {
+  cursor: none !important;
+}
+
+.custom-cursor-hidden a,
+.custom-cursor-hidden button,
+.custom-cursor-hidden [role="button"] {
+  cursor: none !important;
+}
