@@ -251,7 +251,7 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
                         I am truly sorry for not answering your call. It was entirely my mistake, and I promise to be way more attentive.
                       </p>
                       <p className="text-slate-600 text-sm">
-                        This entire page is my way of saying sorry 500 times:
+                        This entire page is my way of saying sorry:
                       </p>
 
                       {/* Scrolling/Staggered sorry list */}
@@ -319,7 +319,7 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
                         neku edhi kakapotey inoka job jahnavi,
                       </p>
                       <p className="text-sm md:text-base text-rose-gold-dark font-sans font-bold tracking-wide uppercase">
-                        tension teskoku kastapadudham techukundham ❤️
+                        tension teskoku Akkuva Stress teskoku kastapadudham techukundham ❤️
                       </p>
                     </div>
 
@@ -368,7 +368,7 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
                         />
                       </div>
                       <p className="font-display text-3xl text-romantic-600 text-center mt-4">
-                        Always yours! 🥺❤️
+                        edigo kissuu please nanu kshaminchu ! 🥺❤️
                       </p>
                     </div>
 
