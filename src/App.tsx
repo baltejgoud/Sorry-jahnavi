@@ -7,6 +7,11 @@ import { ExcuseCard } from "./components/ExcuseCard";
 import { RunawayButton } from "./components/RunawayButton";
 import { CelebrationOverlay } from "./components/CelebrationOverlay";
 
+const fadeUpItem = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+} as const;
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -166,40 +171,54 @@ function App() {
               <Heart className="w-10 h-10 fill-romantic-200" />
             </div>
 
-            <div className="space-y-6">
+            <motion.div
+              className="space-y-6"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { transition: { delayChildren: 0.5, staggerChildren: 0.45 } },
+              }}
+            >
               {/* Header Title */}
-              <h2 className="font-sans font-extrabold text-2xl md:text-3xl text-slate-800 tracking-tight flex items-center justify-center gap-2">
+              <motion.h2
+                variants={fadeUpItem}
+                className="font-sans font-extrabold text-2xl md:text-3xl text-slate-800 tracking-tight flex items-center justify-center gap-2"
+              >
                 <span className="animate-pulse">🥺</span>
                 <span>I Am Deeply Sorry</span>
                 <span className="animate-pulse" style={{ animationDelay: "0.3s" }}>🥺</span>
-              </h2>
+              </motion.h2>
 
-              <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
+              <motion.div variants={fadeUpItem} className="w-20 h-0.5 bg-gradient-to-r from-transparent via-romantic-400 to-transparent mx-auto" />
 
               {/* Message */}
               <div className="font-sans text-slate-700 leading-relaxed text-sm md:text-base space-y-4 text-justify md:text-center">
-                <p>
+                <motion.p variants={fadeUpItem}>
                   I know I didn't answer your calls, and honestly, that was completely my fault.
-                </p>
-                <p className="italic text-rose-gold-dark font-medium">
+                </motion.p>
+                <motion.p variants={fadeUpItem} className="italic text-rose-gold-dark font-medium">
                   I could give excuses. <br />
                   I could blame my phone. <br />
                   I could blame the universe.
-                </p>
-                <p className="font-semibold text-slate-800 text-lg">
+                </motion.p>
+                <motion.p variants={fadeUpItem} className="font-semibold text-slate-800 text-lg">
                   But the truth is simple:
-                </p>
-                <p className="font-extrabold text-romantic-600 text-xl tracking-tight">
+                </motion.p>
+                <motion.p variants={fadeUpItem} className="font-extrabold text-romantic-600 text-xl tracking-tight">
                   I should have answered.
-                </p>
-                <p>
-                  I'm genuinely sorry, Jahnavi.
-                </p>
-                <p className="text-xs text-rose-gold bg-romantic-50/70 py-2.5 px-4 rounded-xl border border-romantic-100 font-semibold tracking-wide">
+                </motion.p>
+                <motion.p variants={fadeUpItem}>
+                  I'm genuinely sorry,{" "}
+                  <span className="relative inline-block font-bold text-romantic-700 blush-glow px-0.5">
+                    Jahnavi
+                  </span>
+                  .
+                </motion.p>
+                <motion.p variants={fadeUpItem} className="text-xs text-rose-gold bg-romantic-50/70 py-2.5 px-4 rounded-xl border border-romantic-100 font-semibold tracking-wide">
                   To prove how sorry I am, I literally filled this entire page with 500 apologies.
-                </p>
+                </motion.p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Surround Right - Excuses 3 & 4 */}

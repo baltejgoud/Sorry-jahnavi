@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const tooltips = [
@@ -15,6 +15,15 @@ const tooltips = [
   "Aha, too slow! ⚡"
 ];
 
+// After enough persistence, the button gets a little softer — a sweet reward for trying so hard
+const devotedTooltips = [
+  "Okay this is kinda cute, you trying so hard 🥹",
+  "Still no, but I love your determination 🥰",
+  "You're stuck with me either way 💕",
+  "My heart is yours regardless 🫶",
+  "Forgive me anyway? pretty please 🥺",
+];
+
 export const RunawayButton: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -23,10 +32,11 @@ export const RunawayButton: React.FC = () => {
   const [tooltip, setTooltip] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
   const [wiggle, setWiggle] = useState(false);
+  const attemptsRef = useRef(0);
 
   // Sound effects or voice prompts could go here, but we will use visual cues!
   
-  const triggerRunaway = (mouseX: number, mouseY: number) => {
+  const triggerRunaway = useCallback((mouseX: number, mouseY: number) => {
     if (!buttonRef.current) return;
 
     // Get current button coordinates
@@ -56,10 +66,10 @@ export const RunawayButton: React.FC = () => {
 
       let offsetX = 0;
       let offsetY = 0;
-      let attempts = 0;
+      let loopAttempts = 0;
       let found = false;
 
-      while (attempts < 50) {
+      while (loopAttempts < 50) {
         // Pick a random angle and a random radius
         const angle = Math.random() * Math.PI * 2;
         const r = 40 + Math.random() * (maxRadius - 40);
@@ -74,7 +84,7 @@ export const RunawayButton: React.FC = () => {
           found = true;
           break;
         }
-        attempts++;
+        loopAttempts++;
       }
 
       if (!found) {
@@ -100,12 +110,15 @@ export const RunawayButton: React.FC = () => {
       setWiggle(true);
       setTimeout(() => setWiggle(false), 500);
 
-      // Choose a random funny text
-      const randomTooltip = tooltips[Math.floor(Math.random() * tooltips.length)];
+      // After several attempts, occasionally reward persistence with a softer message
+      attemptsRef.current += 1;
+      const currentAttempts = attemptsRef.current;
+      const pool = currentAttempts >= 6 && Math.random() < 0.5 ? devotedTooltips : tooltips;
+      const randomTooltip = pool[Math.floor(Math.random() * pool.length)];
       setTooltip(randomTooltip);
       setShowTooltip(true);
     }
-  };
+  }, [position]);
 
   // Track mouse coordinates window-wide
   useEffect(() => {
@@ -115,7 +128,7 @@ export const RunawayButton: React.FC = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [position]);
+  }, [triggerRunaway]);
 
   // Hide tooltip after some delay
   useEffect(() => {

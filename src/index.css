@@ -199,6 +199,29 @@
   animation: heartBurst 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
+/* Blush effect: soft pink pulse behind her name, like blushing cheeks */
+@keyframes blushPulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.blush-glow::before {
+  content: '';
+  position: absolute;
+  inset: -6px -10px;
+  background: radial-gradient(ellipse at center, rgba(255, 133, 151, 0.45), transparent 70%);
+  border-radius: 999px;
+  z-index: -1;
+  animation: blushPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* Hide scrollbar but keep functionality */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

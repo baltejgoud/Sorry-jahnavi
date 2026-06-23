@@ -223,7 +223,22 @@ export const CelebrationOverlay: React.FC<{ onClose: () => void }> = ({ onClose 
               <Sparkles className="w-6 h-6 animate-pulse" style={{ animationDelay: "0.5s" }} />
             </div>
 
-            <div className="mt-8">
+            {/* Step progress dots */}
+            <div className="flex items-center justify-center gap-2 mt-8 mb-2">
+              {[1, 2, 3].map((dot) => (
+                <motion.div
+                  key={dot}
+                  animate={{
+                    scale: step === dot ? 1.3 : 1,
+                    backgroundColor: step >= dot ? "#f45b73" : "rgba(244, 91, 115, 0.2)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="w-2.5 h-2.5 rounded-full"
+                />
+              ))}
+            </div>
+
+            <div>
               <AnimatePresence mode="wait">
                 {step === 1 ? (
                   <motion.div

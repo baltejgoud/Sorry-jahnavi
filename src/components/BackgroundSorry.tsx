@@ -47,11 +47,10 @@ export const BackgroundSorry: React.FC = () => {
     for (let i = 0; i < 500; i++) {
       // Deterministic layout but looks completely random
       const randomVal = Math.sin(i * 12345.67) * 0.5 + 0.5;
-      const sizeIndex = Math.floor(randomVal * sizes.length);
       
       // Determine layers based on index to distribute opacities and sizes
-      let size = sizes[sizeIndex];
-      let opacity = 0.01 + (randomVal * 0.03);
+      let size: string;
+      let opacity: number;
       
       // Distribute sizes more realistically (fewer large words, many small ones)
       if (i < 250) {
