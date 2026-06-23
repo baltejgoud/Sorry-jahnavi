@@ -68,6 +68,10 @@ export default defineConfig([
       },
       // other options...
     },
-  },
 ])
 ```
+
+## Deployment
+
+This project is configured to build and deploy to GitHub Pages automatically via GitHub Actions. Make sure the repository Pages settings are set to "GitHub Actions" as the source.
+
